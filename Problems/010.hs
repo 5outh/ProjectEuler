@@ -1,6 +1,8 @@
-primes x ps = if isPrime x ps then x:next (x:ps)
-                         else next ps
-              where next = primes (succ x)
+sieve [] primes = primes
+sieve (x:xs) primes = x:sieve (filter (\n -> n `mod` x /= 0 ) xs) primes
 
-isPrime x ps = foldl (\acc n -> if x `mod` n == 0 then False else acc) True poss
-    where poss = filter (<= ceiling (sqrt (fromIntegral x) ) ) ps
+primeList = sieve [2..1415] []
+
+checkPrime n = foldl (\acc x -> if n `mod` x == 0 then False else acc) True primeList
+
+answer = sum $ primeList ++ (filter checkPrime $ filter odd [2..2000000])
