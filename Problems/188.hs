@@ -1,0 +1,2 @@
+(!^) :: (Integral a) => a -> a -> a
+(!^) a b = a ^ (a ^ b)
